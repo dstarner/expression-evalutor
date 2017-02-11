@@ -164,8 +164,6 @@ void build_tokens(token* tokens, int size, char* string) {
                 i++;
             }
 
-            printf("\nRoman: %s\n", roman_numeral);
-
             int value = roman_to_int(roman_numeral);
             token tok = {.int_value=value, .op_value=0, .is_operand=1, .is_operator=0};
             free(roman_numeral);

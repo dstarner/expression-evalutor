@@ -3,6 +3,7 @@
 //
 
 #include <ctype.h>
+#include <string.h>
 
 #ifndef INC_306_CALCULATOR_TOKEN_H
 #define INC_306_CALCULATOR_TOKEN_H
@@ -26,7 +27,7 @@ int get_length(token* tokens) {
 
 bool is_rn(char c) {
 
-    return c == 'I' || c == 'V' || c == 'X' || c == 'M' || c == 'D' || c == 'L';
+    return c == 'I' || c == 'V' || c == 'X' || c == 'M' || c == 'D' || c == 'L' || c == 'C';
 
 }
 
@@ -37,10 +38,22 @@ bool is_rn(char c) {
  * @return
  */
 int roman_to_int(char* roman_numeral) {
-
-
-    // THIS IS DUMMY CODE TILL IT GETS FILLED IN
-    return 7;
+    int converted_int, currentNum, lastNum = 0;
+    for (unsigned int i = 0; i < strlen(roman_numeral); ++i) {
+        if (roman_numeral[i] == 73) currentNum = 1;
+        else if (roman_numeral[i] == 86) currentNum = 5;
+        else if (roman_numeral[i] == 88) currentNum = 10;
+        else if (roman_numeral[i] == 76) currentNum = 50;
+        else if (roman_numeral[i] == 67) currentNum = 100;
+        else if (roman_numeral[i] == 68) currentNum = 500;
+        else if (roman_numeral[i] == 77) currentNum = 1000;
+        //check if next number is higher (therefore subtracting current number from total)
+        if ((i > 0) && (lastNum < currentNum)) currentNum -= (lastNum*2);
+        converted_int += currentNum;
+        lastNum = currentNum;
+        //still need to implement weird exceptions or flat out errors (eg iiii)
+    }
+    return converted_int;
 }
 
 
@@ -136,14 +149,14 @@ void build_tokens(token* tokens, int size, char* string) {
                 num += (string[i] - '0');
                 i++;
             }
-            token tok = {.int_value=num, .op_value=0, .is_operand=1, .is_operator=0};
+            token tok = {.op_value=0, .int_value=num, .is_operand=1, .is_operator=0};
             tokens[cur_token] = tok;
             cur_token++;
         }
 
             // Operator
         else if (string[i] == 42 || string[i] == 43 || string[i] == 45 || string[i] == 47) {
-            token tok = {.int_value=0, .op_value=string[i], .is_operand=0, .is_operator=1};
+            token tok = {.op_value=string[i], .int_value=0, .is_operand=0, .is_operator=1};
             tokens[cur_token] = tok;
             cur_token++;
             i++;
@@ -165,7 +178,7 @@ void build_tokens(token* tokens, int size, char* string) {
             }
 
             int value = roman_to_int(roman_numeral);
-            token tok = {.int_value=value, .op_value=0, .is_operand=1, .is_operator=0};
+            token tok = {.op_value=0, .int_value=value, .is_operand=1, .is_operator=0};
             free(roman_numeral);
             tokens[cur_token] = tok;
             cur_token++;

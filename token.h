@@ -38,7 +38,7 @@ bool is_rn(char c) {
  * @return
  */
 int roman_to_int(char* roman_numeral) {
-    int converted_int, currentNum, lastNum = 0;
+    int converted_int = 0, currentNum = 0, lastNum = 0;
     for (unsigned int i = 0; i < strlen(roman_numeral); ++i) {
         if (roman_numeral[i] == 73) currentNum = 1;
         else if (roman_numeral[i] == 86) currentNum = 5;

@@ -30,6 +30,19 @@ bool is_rn(char c) {
 
 }
 
+/**
+ * This function takes in a valid roman numeral in
+ * all CAPS and returns the integer value.
+ * @param roman_numeral
+ * @return
+ */
+int roman_to_int(char* roman_numeral) {
+
+
+    // THIS IS DUMMY CODE TILL IT GETS FILLED IN
+    printf("%s", roman_numeral);
+    return 0;
+}
 
 
 /**
@@ -82,6 +95,9 @@ int determine_token_size(char* string) {
             while (is_rn(string[i])) {
                 i++;
             }
+
+            int value = roman_to_int("VII");
+
             needed++;
         }
 

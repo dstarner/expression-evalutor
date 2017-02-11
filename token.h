@@ -40,8 +40,7 @@ int roman_to_int(char* roman_numeral) {
 
 
     // THIS IS DUMMY CODE TILL IT GETS FILLED IN
-    printf("%s", roman_numeral);
-    return 0;
+    return 7;
 }
 
 
@@ -95,8 +94,6 @@ int determine_token_size(char* string) {
             while (is_rn(string[i])) {
                 i++;
             }
-
-            int value = roman_to_int("VII");
 
             needed++;
         }
@@ -155,10 +152,26 @@ void build_tokens(token* tokens, int size, char* string) {
             // If roman numeral (i/I, x/X, v/V)
         else if (is_rn(string[i])) {
 
+            int size = 0;
+            char * roman_numeral = (char *) malloc(1);
             // Keep incrementing until not roman numeral
             while (is_rn(string[i])) {
+                // Increment size
+                size++;
+                // Reallocate size
+                roman_numeral = (char *) realloc(roman_numeral, size);
+                roman_numeral[size-1] = string[i];
                 i++;
             }
+
+            printf("\nRoman: %s\n", roman_numeral);
+
+            int value = roman_to_int(roman_numeral);
+            token tok = {.int_value=value, .op_value=0, .is_operand=1, .is_operator=0};
+            free(roman_numeral);
+            tokens[cur_token] = tok;
+            cur_token++;
+
         }
     }
 

@@ -22,7 +22,7 @@ struct stack_node* init_node(token val){
 }
 
 struct stack{
-        struct stack_node *top;
+        struct stack_node* top;
         int size;
 };
 
@@ -57,3 +57,16 @@ token pop(struct stack* st){
 
 }
 
+token peek(struct stack* st){
+	return st->top->val;
+}
+
+void destroy_stack(struct stack st){
+	stack_node* n = st->top;
+	while(n!=NULL){
+		struct stack_node newnode=n->next;
+		free(n);
+		n=newnode;
+	}
+	free(st);
+}

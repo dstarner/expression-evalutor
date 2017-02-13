@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdio.h>
 
 #include "token.h"
 #include "stack.h"
@@ -42,19 +43,32 @@ int main(int argc, char *argv[]) {
 
     build_tokens(tokens, token_arr_size, expression);
 
-    struct stack *stack;
+    struct stack * value_stack;
+    struct stack * op_stack;
 
-    stack = init_stack();
+    value_stack = init_stack();
+    op_stack = init_stack();
 
+    // Read all the tokens in
     for (int i=0; i < token_arr_size; i++) {
-        push(tokens[i], stack);
-        //printf("op: %c, val: %d\n", tokens[i].op_value, tokens[i].int_value);
+        token current = tokens[i];
+
+        // Value
+        if (current.is_operand) {
+            // Push to value stack
+            push(current, value_stack);
+
+        // '('
+        } else if (current.op_value == 40) {
+            push(current, op_stack);
+        // ')'
+        } else if (current.op_value == 41) {
+            while ()
+        }
+
     }
 
-    while (!is_empty(stack)) {
-        token tk = pop(stack);
-        printf("%d -- %d\n", tk.op_value, tk.int_value);
-    }
+    // DESTROYER OF ALL THINGS
 
     return 0;
 }

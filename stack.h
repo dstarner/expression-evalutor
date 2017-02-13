@@ -15,7 +15,7 @@ struct stack_node{
 
 struct stack_node* init_node(token val){
         struct stack_node* res;
-        res = (stack_node*) malloc(sizeof(res));
+        res = (stack_node*) malloc(sizeof(*res));
         res->val = val;
         res->next = NULL; 
         return res;
@@ -28,7 +28,7 @@ struct stack{
 
 struct stack* init_stack(){
         struct stack* st;
-        st = (stack*) malloc(sizeof(struct stack));
+        st = (stack*) malloc(sizeof(*st));
         st->size=0;
         st->top=NULL;
         return st;

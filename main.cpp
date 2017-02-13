@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "token.h"
 #include "stack.h"
@@ -63,7 +64,9 @@ int main(int argc, char *argv[]) {
             push(current, op_stack);
         // ')'
         } else if (current.op_value == 41) {
-            while ()
+            while (1) {
+
+            }
         }
 
     }

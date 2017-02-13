@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "token.h"
+#include "stack.h"
 
 int main(int argc, char *argv[]) {
 
@@ -41,8 +42,18 @@ int main(int argc, char *argv[]) {
 
     build_tokens(tokens, token_arr_size, expression);
 
+    struct stack *stack;
+
+    stack = init_stack();
+
     for (int i=0; i < token_arr_size; i++) {
-        printf("op: %c, val: %d\n", tokens[i].op_value, tokens[i].int_value);
+        push(tokens[i], stack);
+        //printf("op: %c, val: %d\n", tokens[i].op_value, tokens[i].int_value);
+    }
+
+    while (!is_empty(stack)) {
+        token tk = pop(stack);
+        printf("%d -- %d\n", tk.op_value, tk.int_value);
     }
 
     return 0;

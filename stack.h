@@ -62,10 +62,10 @@ token peek(struct stack* st){
 	return st->top->val;
 }
 
-void destroy_stack(struct stack st){
+void destroy_stack(struct stack* st){
 	stack_node* n = st->top;
 	while(n!=NULL){
-		struct stack_node newnode=n->next;
+		struct stack_node* newnode=n->next;
 		free(n);
 		n=newnode;
 	}

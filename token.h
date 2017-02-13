@@ -4,6 +4,8 @@
 
 #include <ctype.h>
 #include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #ifndef INC_306_CALCULATOR_TOKEN_H
 #define INC_306_CALCULATOR_TOKEN_H

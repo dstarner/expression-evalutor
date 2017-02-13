@@ -1,4 +1,3 @@
-#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -64,7 +63,7 @@ int main(int argc, char *argv[]) {
             push(current, op_stack);
         // ')'
         } else if (current.op_value == 41) {
-            while (1) {
+            while (peek(op_stack).op_value != 40) {
 
             }
         }

@@ -16,7 +16,7 @@ struct stack_node{
 
 struct stack_node* init_node(token val){
         struct stack_node* res;
-        res = (stack_node*) malloc(sizeof(*res));
+        res = (struct stack_node*) malloc(sizeof(*res));
         res->val = val;
         res->next = NULL; 
         return res;
@@ -29,7 +29,7 @@ struct stack{
 
 struct stack* init_stack(){
         struct stack* st;
-        st = (stack*) malloc(sizeof(*st));
+        st = (struct stack*) malloc(sizeof(*st));
         st->size=0;
         st->top=NULL;
         return st;
@@ -63,7 +63,7 @@ token peek(struct stack* st){
 }
 
 void destroy_stack(struct stack* st){
-	stack_node* n = st->top;
+	struct stack_node* n = st->top;
 	while(n!=NULL){
 		struct stack_node* newnode=n->next;
 		free(n);

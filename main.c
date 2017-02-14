@@ -64,9 +64,18 @@ int main(int argc, char *argv[]) {
         // ')'
         } else if (current.op_value == 41) {
             while (peek(op_stack).op_value != 40) {
-
+                // APPLYOPS
             }
+            pop(op_stack);
+        // Token is operator
+        } else if (current.is_operator) {
+
+            // While top of 'op_stack' has precedence
+
         }
+    }
+
+    while (!is_empty(op_stack)) {
 
     }
 

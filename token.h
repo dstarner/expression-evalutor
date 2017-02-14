@@ -100,10 +100,9 @@ int determine_token_size(char* string) {
                 i++;
             }
             needed++;
-        }
 
-        // Operator
-        else if (string[i] == 42 || string[i] == 43 || string[i] == 45 || string[i] == 47) {
+            // Operator
+        } else if (string[i] == 42 || string[i] == 43 || string[i] == 45 || string[i] == 47) {
             needed++;
             i++;
         }
@@ -161,6 +160,7 @@ void build_tokens(token* tokens, int size, char* string) {
             tokens[cur_token] = tok;
             cur_token++;
         }
+
 
             // Operator
         else if (string[i] == 42 || string[i] == 43 || string[i] == 45 || string[i] == 47) {

@@ -101,8 +101,8 @@ int main(int argc, char *argv[]) {
         // ')'
         } else if (current.op_value == 41) {
             while (peek(op_stack).op_value != 40) {
-                int num2 = pop(value_stack);
-                int num1 = pop(value_stack);
+                token num2 = pop(value_stack);
+                token num1 = pop(value_stack);
                 int val = ops(num1, pop(value_stack), num2);
                 token temp = {.op_value=0, .int_value=val, .is_operand=1, .is_operator=0};
                 push(temp, value_stack);
@@ -113,13 +113,28 @@ int main(int argc, char *argv[]) {
         } else if (current.is_operator) {
 
             // While top of 'op_stack' has precedence
+            while (!is_empty(op_stack) && hasPrecedence(current, peek(op_stack))) {
+                token num2 = pop(value_stack);
+                token num1 = pop(value_stack);
+                int val = ops(num1, pop(value_stack), num2);
+                token temp = {.op_value=0, .int_value=val, .is_operand=1, .is_operator=0};
+                push(temp, value_stack);
+            }
+
+            push(current, op_stack);
 
         }
     }
 
     while (!is_empty(op_stack)) {
-
+        token num2 = pop(value_stack);
+        token num1 = pop(value_stack);
+        int val = ops(num1, pop(value_stack), num2);
+        token temp = {.op_value=0, .int_value=val, .is_operand=1, .is_operator=0};
+        push(temp, value_stack);
     }
+
+    printf("%d", pop(value_stack).int_value);
 
     // DESTROYER OF ALL THINGS
 

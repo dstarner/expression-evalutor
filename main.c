@@ -89,12 +89,18 @@ int main(int argc, char *argv[]) {
         // '('
         } else if (current.op_value == 40) {
             push(current, op_stack);
+
         // ')'
         } else if (current.op_value == 41) {
             while (peek(op_stack).op_value != 40) {
-                // APPLYOPS
+                int num2 = pop(value_stack);
+                int num1 = pop(value_stack);
+                int val = ops(num1, pop(value_stack), num2);
+                token temp = {.op_value=0, .int_value=val, .is_operand=1, .is_operator=0};
+                push(temp, value_stack);
             }
             pop(op_stack);
+
         // Token is operator
         } else if (current.is_operator) {
 

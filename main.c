@@ -11,6 +11,14 @@
 #define false 0
 #endif
 
+bool hasPrecedence(token op1, token op2){
+	if(op2.op_value == '(' || op2.op_value == ')')
+		return false;
+	if((op1.op_value=='*'||op1.op_value=='/')&&(op2.op_value=='+'||op2.op_value=='-'))
+		return false;
+	else
+		return true;
+}
 
 int ops(token num1, token op, token num2){
 	int total=0;

@@ -4,6 +4,34 @@
 #include "token.h"
 #include "stack.h"
 
+
+#ifndef bool
+#define bool int
+#define true 1
+#define false 0
+#endif
+
+
+int ops(token num1, token op, token num2){
+	int total=0;
+	switch(op.op_value){
+		case '+': total=num1.int_value+num2.int_value;
+		break;
+		case '-': total=num1.int_value-num2.int_value;
+		break;
+		case '*': total=num1.int_value*num2.int_value;
+                break;
+		case '/': total=num1.int_value/num2.int_value;
+                break;
+
+		default:
+		break;
+	
+	}
+	return total;
+	
+}
+
 int main(int argc, char *argv[]) {
 
     // Ensure that there is another argument

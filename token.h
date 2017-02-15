@@ -119,14 +119,14 @@ int determine_token_size(char *string) {
             needed++;
             i++;
 
-            // Operator
-        } else if (string[i] == 42 || string[i] == 43 || string[i] == 45 || string[i] == 47) {
-            needed++;
-            i++;
-        }
-
             // If roman numeral (i/I, x/X, v/V)
-        else if (is_rn(string[i])) {
+        } else if (is_rn(string[i]) || (string[i] == 45 && is_rn(string[i+1]))) {
+
+            // If negative
+            bool neg = string[i] == 45;
+
+            // Increment to number
+            if (neg) {i++;}
 
             // Keep incrementing until not roman numeral
             while (is_rn(string[i])) {
@@ -134,6 +134,11 @@ int determine_token_size(char *string) {
             }
 
             needed++;
+
+            // Operator
+        } else if (string[i] == 42 || string[i] == 43 || string[i] == 45 || string[i] == 47) {
+            needed++;
+            i++;
         } else {
             return -1;
         }
@@ -193,16 +198,14 @@ void build_tokens(token *tokens, int size, char *string) {
             i++;
         }
 
-            // Operator
-        else if (string[i] == 42 || string[i] == 43 || string[i] == 45 || string[i] == 47) {
-            token tok = {.op_value=string[i], .int_value=0, .is_operand=0, .is_operator=1};
-            tokens[cur_token] = tok;
-            cur_token++;
-            i++;
-        }
-
             // If roman numeral (i/I, x/X, v/V)
-        else if (is_rn(string[i])) {
+        else if (is_rn(string[i]) || (string[i] == 45 && is_rn(string[i+1]))) {
+
+            // If negative
+            bool neg = string[i] == 45;
+
+            // Increment to number
+            if (neg) {i++;}
 
             int size = 0;
             char *roman_numeral = (char *) malloc(1);
@@ -217,12 +220,22 @@ void build_tokens(token *tokens, int size, char *string) {
             }
 
             int value = roman_to_int(roman_numeral);
+            if (neg) {value = -1 * value;}
             token tok = {.op_value=0, .int_value=value, .is_operand=1, .is_operator=0};
             free(roman_numeral);
             tokens[cur_token] = tok;
             cur_token++;
 
         }
+
+            // Operator
+        else if (string[i] == 42 || string[i] == 43 || string[i] == 45 || string[i] == 47) {
+            token tok = {.op_value=string[i], .int_value=0, .is_operand=0, .is_operator=1};
+            tokens[cur_token] = tok;
+            cur_token++;
+            i++;
+        }
+
     }
 
 

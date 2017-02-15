@@ -40,6 +40,58 @@ int ops(token num1, token op, token num2){
 	
 }
 
+char* toPostfix(token* tokens,int size){
+	struct stack* output = init_stack();
+	struct stack* st = init_stack();
+	for(int i=0; i<size; ++i){
+		token t = tokens[i];
+		if(t.is_operand){
+			push(t,output);
+		}
+		else if(t.is_operator){
+			if(t.op_value=='('){
+				push(t,st);
+			}
+			if(t.op_value==')'){
+				char c=' ';
+				while((st->top).op_value!='('){
+					push(pop(st),output);
+					c = st->top.op_value;	
+				}
+				if(is_empty(st) && c!='('){
+					return "error";
+				}
+				while(!is_empty(st)){
+					if(st->top.op_value==')' || '(') return "error";
+					push(pop(st),output); 
+				}
+				
+			}
+			else{
+			while(!is_empty(st)){
+				token top = st->top;
+				if(hasPrecedence(top,t)){
+					push(pop(st),output);
+					push(t,st);
+				}
+				else{
+					push(t,st);
+				}
+				
+			}
+			}
+		}
+		
+	}
+
+	char* result=(char*)malloc(sizeof(1));
+	while(!is_empty(output)){
+		result=(char*)malloc(sizeof(result+1));
+		result=result+get_val(pop_bottom(output));
+	}
+	return result;
+} 
+
 int main(int argc, char *argv[]) {
 
     // Ensure that there is another argument

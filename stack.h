@@ -71,3 +71,16 @@ void destroy_stack(struct stack* st){
 	}
 	free(st);
 }
+
+token pop_bottom(struct stack* st){
+	struct stack_node* head = st->top;
+	struct stack_node* current;
+	while(head->next!=NULL){
+		current=head;
+		head=head->next;
+	}
+	current->next=NULL;
+	
+	return head->val;
+	
+}

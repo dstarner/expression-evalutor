@@ -101,7 +101,6 @@ int main(int argc, char *argv[]) {
         // ')'
         } else if (current.is_operator && current.op_value == 41) {
             while (peek(op_stack).op_value != 40) {
-                printf("Stuck");
                 token num2 = pop(value_stack);
                 token num1 = pop(value_stack);
                 int val = ops(num1, pop(op_stack), num2);
@@ -138,7 +137,7 @@ int main(int argc, char *argv[]) {
         push(temp, value_stack);
     }
 
-    printf("%d", pop(value_stack).int_value);
+    printf("\n%d\n", pop(value_stack).int_value);
 
     // DESTROYER OF ALL THINGS
 

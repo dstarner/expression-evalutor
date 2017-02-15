@@ -43,24 +43,26 @@ int ops(token num1, token op, token num2){
 int main(int argc, char *argv[]) {
 
     // Ensure that there is another argument
-    if (argc != 2) {
-        fprintf(stderr, "There must be %d arguments!", 2);
+    if (argc != 3) {
+        fprintf(stderr, "Usage: ./main <input_file> <output_file>!");
         return 1;
     }
 
     FILE *input_file;
+    FILE *output_file;
 
     input_file = fopen(argv[1], "r");
+    output_file = fopen(argv[2], "w");
 
-    if (!input_file) {
-        printf("File not found.");
+    if (!input_file || !output_file) {
+        printf("File(s) not found.");
         return -1;
     }
 
     char expression[1024];
 
     if (feof (input_file)) {
-        printf("Invalid file.");
+        fputs("Error", output_file);
         return -1;
     }
 
@@ -71,7 +73,7 @@ int main(int argc, char *argv[]) {
     token_arr_size = determine_token_size(expression);
 
     if (token_arr_size < 0) {
-        printf("Invalid token.");
+        fputs("Error", output_file);
         return -1;
     }
 
@@ -137,7 +139,11 @@ int main(int argc, char *argv[]) {
         push(temp, value_stack);
     }
 
-    printf("\n%d\n", pop(value_stack).int_value);
+    // The answer
+    int answer = pop(value_stack).int_value;
+    char string[30];
+    sprintf(string, "Prefix: %s\nPostfix: %s\nValue: %d", "", "", answer);
+    fputs(string, output_file);
 
     // DESTROYER OF ALL THINGS
 

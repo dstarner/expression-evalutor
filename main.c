@@ -21,6 +21,25 @@ bool error_check(struct stack * stk) {
     return value_err;
 }
 
+/*
+ * Gets length of integer for string concat
+ */
+int lenHelper(int x) {
+    // If negative, set to positive
+    if (x < 0) {x = -1 * x;}
+
+    if(x>=1000000000) return 10;
+    if(x>=100000000) return 9;
+    if(x>=10000000) return 8;
+    if(x>=1000000) return 7;
+    if(x>=100000) return 6;
+    if(x>=10000) return 5;
+    if(x>=1000) return 4;
+    if(x>=100) return 3;
+    if(x>=10) return 2;
+    return 1;
+}
+
 bool hasPrecedence(token op1, token op2){
 	if(op2.op_value == '(' || op2.op_value == ')')
 		return false;
@@ -100,55 +119,88 @@ char* toPrefix(token* tokens,int size){
     char *result=(char*)malloc(sizeof(1));
     while(!is_empty(output)){
 
-        const char* c = get_val(pop(output));
-        if(c[0]!=')' && c[0]!='(')
-            strcat(result,c);
+        token t = pop(output);
+
+        // Is number
+        if (t.is_operand) {
+
+            // We need to account for mult-digit integers, and neg numbers.
+            // This means that we need to remalloc for the correct size
+
+            // Get number of digits in number
+            int num_size = lenHelper(t.int_value);
+
+            // If negative, you need to account for neg sign
+            if (t.int_value < 0) {num_size += 1;}
+
+            size += num_size;
+
+            // New size
+            result = (char *) realloc(result, size);
+
+            sprintf(result, "%s %d", result, t.int_value);
+
+            // Is operator
+        } else {
+
+            if (t.op_value != 40 && t.op_value != 41) {
+
+                // Add size for space and the op value
+                size += 2;
+
+                // New size
+                result = (char *) realloc(result, size);
+
+                // Concat string with space
+                sprintf(result, "%s %c", result, t.op_value);
+            }
+        }
     }
     return result;
 }
 
 
 char* toPostfix(token* tokens,int size){
+
     struct stack* output = init_stack();
     struct stack* st = init_stack();
+
+    // Iterate over the tokens
     for(int i=0; i<size; ++i){
         token t = tokens[i];
 
+        // If number
         if(t.is_operand){
 
             push(t,output);
         }
+
+        // If operator
         else if(t.is_operator){
+
+            // If open parenthesis
             if(t.op_value=='('){
                 push(t,st);
             }
+
+            // If closed parenthesis
             if(t.op_value==')'){
                 char c=' ';
                 while((st->top)->val.op_value!='('){
                     push(pop(st),output);
                     c = st->top->val.op_value;
                 }
-
                 while(!is_empty(st)){
-
                     push(pop(st),output);
                 }
-
-
             }
             else{
-
                 if(!is_empty(st)){
-
-
                     token top = st->top->val;
                     if(hasPrecedence(top,t)){
                         push(pop(st),output);
 
                     }
-
-
-
                 }
 
                 push(t,st);
@@ -161,12 +213,51 @@ char* toPostfix(token* tokens,int size){
     }
 
     output = rev_stack(output);
+
+    // String info
+    size = 0;
     char *result=(char*)malloc(sizeof(1));
+
+    // Keep pushing stuff out until empty
     while(!is_empty(output)){
 
-        const char* c = get_val(pop(output));
-        if(c[0]!=')' && c[0]!='(')
-            strcat(result,c);
+        token t = pop(output);
+
+        // Is number
+        if (t.is_operand) {
+
+            // We need to account for mult-digit integers, and neg numbers.
+            // This means that we need to remalloc for the correct size
+
+            // Get number of digits in number
+            int num_size = lenHelper(t.int_value);
+
+            // If negative, you need to account for neg sign
+            if (t.int_value < 0) {num_size += 1;}
+
+            size += num_size;
+
+            // New size
+            result = (char *) realloc(result, size);
+
+            sprintf(result, "%s %d", result, t.int_value);
+
+        // Is operator
+        } else {
+
+            if (t.op_value != 40 && t.op_value != 41) {
+
+                // Add size for space and the op value
+                size += 2;
+
+                // New size
+                result = (char *) realloc(result, size);
+
+                // Concat string with space
+                sprintf(result, "%s %c", result, t.op_value);
+            }
+
+        }
     }
     return result;
 }

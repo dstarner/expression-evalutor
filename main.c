@@ -362,7 +362,7 @@ int main(int argc, char *argv[]) {
     char expression[1024];
 
     if (feof (input_file)) {
-        fputs("Error", output_file);
+        fputs("Error!", output_file);
         return 1;
     }
 
@@ -373,7 +373,7 @@ int main(int argc, char *argv[]) {
     token_arr_size = determine_token_size(expression);
 
     if (token_arr_size < 0) {
-        fputs("Error", output_file);
+        fputs("Error!", output_file);
         return 1;
     }
 

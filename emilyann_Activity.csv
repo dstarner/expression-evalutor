@@ -1,0 +1,13 @@
+DATE,UBIT,ACTIVITY,TOOLS,NOTES
+2/9/17,"emilyann, kiraasht, dcstarne",DD,,Initial discussion on dividing up + competing tasks.
+2/11/17,emilyann,DD,"pen, paper",nailing down the roman conversion function and writing down test cases
+2/11/17,emilyann,CP,"sublime text, make",writing the function
+2/11/17,emilyann,BFF,"sublime text, make",short fix to make and structs at compile time (probably an issue on my end)
+2/11/17,emilyann,TD,"sublime text, make",testing various roman numerals in various stages of capitalization
+2/15/17,"emilyann, kiraasht",CP,"vim, gcc",pair programming w/ kira - writing postfix algorithm
+2/16/17,"emilyann, kiraasht",CP,"vim, gcc",pair programming w/ kira - writing postfix/prefix algorithms
+2/16/17,"emilyann, kiraasht",BFF,"vim, gcc",found pointer/logic and syntax errors that we corrected in the functions.
+2/16/17,"emilyann, kiraasht",TD,"vim, gcc",testing the postfix/prefix functions 
+,,,,
+,,,,
+,,,,

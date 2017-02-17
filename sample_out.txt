@@ -1,0 +1,3 @@
+Prefix:  * -15 + 4 6
+Postfix:  -15 4 6 + *
+Value: -150

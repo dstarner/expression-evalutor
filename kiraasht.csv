@@ -1,0 +1,13 @@
+Date,Discussions,Progress,Testing Done,Bugs Found/Fixed,Tools
+,,,,,
+Feb. 8th,Divided tasks,Came up with plan,,,
+,,,,,
+Feb 9th,stack of tokens (gotta implement stack),"Token , makefile",,,
+,,,,,
+Feb 12th,implemented stack of tokens,completed token stack,attempted compilation,"pointer errors, seg faults","gcc, vim"
+,,,,,
+Feb 13th,Pair Programming me and dan,"Token stack, priority, perform operations","repeated push/pop, run a test file, step w/gdb",compiler difference errors,"cmake, clang, gcc, vim, gdb"
+,,,,,
+Feb 15th,Pair programming me and emily,postfix function,attempted compilation ,"pointer errors, syntax errors","vim, gcc"
+,,,,,
+Feb 16th,pair programming with emily,postfix/prefix,"compilation, print statements, gdb","pointer errors, seg faults, syntax","vim, gdb, gcc"

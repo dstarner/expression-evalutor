@@ -60,6 +60,53 @@ struct stack* rev_stack(struct stack* st){
     return newstack;
 }
 
+char* toPrefix(token* tokens,int size){
+    struct stack* output = init_stack();
+    struct stack* st = init_stack();
+    for(int i=size-1; i>-1; --i){
+        token t = tokens[i];
+        if(t.is_operand){
+            push(t,output);
+        }
+        else if(t.is_operator){
+            if(t.op_value==')'){
+                push(t,st);
+            }
+            if(t.op_value=='('){
+                char c=' ';
+                while((st->top)->val.op_value!=')'){
+                    push(pop(st),output);
+                    c = st->top->val.op_value;
+                }
+                while(!is_empty(st)){
+                    push(pop(st),output);
+                }
+            }
+            else{
+                if(!is_empty(st)){
+                    token top = st->top->val;
+                    if(hasPrecedence(top,t)){
+                        push(pop(st),output);
+                    }
+                }
+                push(t,st);
+            }
+        }
+    }
+    while(!is_empty(st)){
+        push(pop(st),output);
+    }
+
+    char *result=(char*)malloc(sizeof(1));
+    while(!is_empty(output)){
+
+        const char* c = get_val(pop(output));
+        if(c[0]!=')' && c[0]!='(')
+            strcat(result,c);
+    }
+    return result;
+}
+
 
 char* toPostfix(token* tokens,int size){
     struct stack* output = init_stack();
@@ -112,7 +159,6 @@ char* toPostfix(token* tokens,int size){
 
         push(pop(st),output);
     }
-
 
     output = rev_stack(output);
     char *result=(char*)malloc(sizeof(1));
@@ -247,12 +293,13 @@ int main(int argc, char *argv[]) {
     // Evaluate the answer
     int answer =  evaluate(tokens, token_arr_size);
     char* postfix = toPostfix(tokens,token_arr_size);
+    char* prefix = toPrefix(tokens,token_arr_size);
 
     char string[500];
     if (value_err) {
         sprintf(string, "Prefix: %s\nPostfix: %s\nValue: Error", postfix, "");
     } else {
-        sprintf(string, "Prefix: %s\nPostfix: %s\nValue: %d", "", postfix, answer);
+        sprintf(string, "Prefix: %s\nPostfix: %s\nValue: %d", prefix, postfix, answer);
     }
     fputs(string, output_file);
 

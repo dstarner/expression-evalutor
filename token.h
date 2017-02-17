@@ -33,7 +33,7 @@ int get_length(token *tokens) {
 
 
 const char* get_val(token t){
-    char* c = malloc(sizeof(2));
+    char* c = (char*)malloc(sizeof(2));
     if(t.is_operator){c[0]=t.op_value; c[1]=' ';}
     if(t.is_operand){char ch = t.int_value+'0';c[0]=ch; c[1]=' ';}
 

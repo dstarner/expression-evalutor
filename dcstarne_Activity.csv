@@ -1,17 +1,0 @@
-Date,Discussions,Progress,Testing Done,Bugs Found/Fixed,Tools,,,,
-,,,,,,,,,
-Feb. 8th,Discussed the different tasks each of us will complete.,Basic gameplan laid out,,,,,,,
-,,,,,,,,,
-Feb 9th,We will use a stack of tokens to manipulate the expressions,Token struct laid out; Makefile,Trying to break up expression into tokens,"malloc not creating token arraycorrectly","CLion, cmake, clang",,,,
-,,,,,,,,,
-Feb 10th,,"Correctly creates the token arrayReads file input","Extensive testing done with creating tokenarray",Slight bug with token splitting,"CLion, cmake, clang",,,,
-,,,,,,,,,
-Feb 13th,Pair Programming,Token Stack complete; Compiles on all,Pushed everything and popped everything,Difference between compilers,"Clion, cmake, clang",,,,
-Feb 13th,,,,Parentheses Not handled correctly,"Clion, cmake, clang, gcc",,,,
-,,,,,,,,,
-Feb 15th,,Parentheses and Neg integers done,Testing with different inputs,Not correctly incrementing through string,"Clion, cmake, clang, gcc",,,,
-,,,,,,,,,
-Feb 17th,Kira and Emily facing some bugs with post/pre fix notations,Fixed everything.,Gave sample inputs of different kinds,Not correctly handling negative numbers or multi-digit integers.,,,,,
-,,,,,,,,,
-,,,,,,,,,
-20170217,dcstarne,Preassessment,gcc ,Execute: ./main input.txt output.txt,,,,,
